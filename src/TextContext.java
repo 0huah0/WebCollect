@@ -3,12 +3,12 @@ import java.util.Date;
 
 public class TextContext {
 	private long recId;
-	private String fromUrl;//´ÓÕâÀï×¥µ½µÄ
-	private String title; //¼ò½éµÈ
-	private String titleUrl;//titleÈç¹ûÓĞurl
-	private String context; //ÄÚÈİĞÅÏ¢µÈÎÄ±¾
-	private String imgLocUrl;	//ÄÚÈİÏà¹ØµÈÍ¼Æ¬ÖĞftpÖĞµÄurl
-	private String imgUrl;//Í¼Æ¬µÄÍøÒ³Â·¾¶
+	private String fromUrl;//ä»è¿™é‡ŒæŠ“åˆ°çš„
+	private String title; //ç®€ä»‹ç­‰
+	private String titleUrl;//titleå¦‚æœæœ‰url
+	private String context; //å†…å®¹ä¿¡æ¯ç­‰æ–‡æœ¬
+	private String imgLocUrl;	//å†…å®¹ç›¸å…³ç­‰å›¾ç‰‡ä¸­ftpä¸­çš„url
+	private String imgUrl;//å›¾ç‰‡çš„ç½‘é¡µè·¯å¾„
 	private int status;
 	private int type;
 	private Date gettedDt;

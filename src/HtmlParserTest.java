@@ -15,18 +15,9 @@ import org.htmlparser.tags.TableTag;
 import org.htmlparser.util.NodeList;
 
 /**
- * <br>
- * ±êÌâ: <br>
- * ¹¦ÄÜ¸ÅÒª: <br>
- * °æÈ¨: cityyouth.cn (c) 2005 <br>
- * ¹«Ë¾:ÉÏº£³ÇÊĞÇàÄêÍø <br>
- * ´´½¨Ê±¼ä:2005-12-21 <br>
- * ĞŞ¸ÄÊ±¼ä: <br>
- * ĞŞ¸ÄÔ­Òò£º
  * 
- * @author ÕÅÎ°
- * @version 1.0
- */
+ * 
+ **/
 public class HtmlParserTest {
 
 	public static void initProxy(String host, int port, final String username,
@@ -43,13 +34,13 @@ public class HtmlParserTest {
 		prop.setProperty("http.proxyType", "4");
 		prop.setProperty("http.proxySet", "true");
 
-		// ÉèÖÃ²»ĞèÒªÍ¨¹ı´úÀí·şÎñÆ÷·ÃÎÊµÄÖ÷»ú£¬¿ÉÒÔÊ¹ÓÃ*Í¨Åä·û£¬¶à¸öµØÖ·ÓÃ|·Ö¸ô
+		// è®¾ç½®ä¸éœ€è¦é€šè¿‡ä»£ç†æœåŠ¡å™¨è®¿é—®çš„ä¸»æœºï¼Œå¯ä»¥ä½¿ç”¨*é€šé…ç¬¦ï¼Œå¤šä¸ªåœ°å€ç”¨|åˆ†éš”
 		prop.setProperty("http.nonProxyHosts", "localhost|10.*|*.efoxconn.com");
-		// ÉèÖÃ°²È«·ÃÎÊÊ¹ÓÃµÄ´úÀí·şÎñÆ÷µØÖ·Óë¶Ë¿Ú
-		// ËüÃ»ÓĞhttps.nonProxyHostsÊôĞÔ£¬Ëü°´ÕÕhttp.nonProxyHosts ÖĞÉèÖÃµÄ¹æÔò·ÃÎÊ
+		// è®¾ç½®å®‰å…¨è®¿é—®ä½¿ç”¨çš„ä»£ç†æœåŠ¡å™¨åœ°å€ä¸ç«¯å£
+		// å®ƒæ²¡æœ‰https.nonProxyHostså±æ€§ï¼Œå®ƒæŒ‰ç…§http.nonProxyHosts ä¸­è®¾ç½®çš„è§„åˆ™è®¿é—®
 		// prop.setProperty("https.proxyHost", "ehome-a.efoxconn.com");
 		// prop.setProperty("https.proxyPort", "443");
-		// HttpURLConnectionÊÇ»ùÓÚHTTPĞ­ÒéµÄ£¬Æäµ×²ãÍ¨¹ısocketÍ¨ĞÅÊµÏÖ¡£Èç¹û²»ÉèÖÃ³¬Ê±£¨timeout£©£¬ÔÚÍøÂçÒì³£µÄÇé¿öÏÂ£¬¿ÉÄÜ»áµ¼ÖÂ³ÌĞò½©ËÀ¶ø²»¼ÌĞøÍùÏÂÖ´ĞĞ¡£¿ÉÒÔÍ¨¹ıÒÔÏÂÁ½¸öÓï¾äÀ´ÉèÖÃÏàÓ¦µÄ³¬Ê±£º
+		// HttpURLConnectionæ˜¯åŸºäºHTTPåè®®çš„ï¼Œå…¶åº•å±‚é€šè¿‡socketé€šä¿¡å®ç°ã€‚å¦‚æœä¸è®¾ç½®è¶…æ—¶ï¼ˆtimeoutï¼‰ï¼Œåœ¨ç½‘ç»œå¼‚å¸¸çš„æƒ…å†µä¸‹ï¼Œå¯èƒ½ä¼šå¯¼è‡´ç¨‹åºåƒµæ­»è€Œä¸ç»§ç»­å¾€ä¸‹æ‰§è¡Œã€‚å¯ä»¥é€šè¿‡ä»¥ä¸‹ä¸¤ä¸ªè¯­å¥æ¥è®¾ç½®ç›¸åº”çš„è¶…æ—¶ï¼š
 		// System.setProperty("sun.net.client.defaultConnectTimeout",
 		// "30000");
 		// System.setProperty("sun.net.client.defaultReadTimeout", "30000");
@@ -69,14 +60,14 @@ public class HtmlParserTest {
 			
 			URL url = new URL("http://www.hao123.com"); //http://www.tuicool.com/ah/
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			// JDK 1.5ÒÔÇ°µÄ°æ±¾£¬Ö»ÄÜÍ¨¹ıÉèÖÃÕâÁ½¸öÏµÍ³ÊôĞÔÀ´¿ØÖÆÍøÂç³¬Ê±¡£ÔÚ1.5ÖĞ£¬»¹¿ÉÒÔÊ¹ÓÃHttpURLConnectionµÄ¸¸ÀàURLConnectionµÄÒÔÏÂÁ½¸ö·½·¨£º
+			// JDK 1.5ä»¥å‰çš„ç‰ˆæœ¬ï¼Œåªèƒ½é€šè¿‡è®¾ç½®è¿™ä¸¤ä¸ªç³»ç»Ÿå±æ€§æ¥æ§åˆ¶ç½‘ç»œè¶…æ—¶ã€‚åœ¨1.5ä¸­ï¼Œè¿˜å¯ä»¥ä½¿ç”¨HttpURLConnectionçš„çˆ¶ç±»URLConnectionçš„ä»¥ä¸‹ä¸¤ä¸ªæ–¹æ³•ï¼š
 			conn.setConnectTimeout(5000);
 			conn.setReadTimeout(5000);
-			// Ôö¼Ó±¨Í·£¬Ä£Äâä¯ÀÀÆ÷£¬·ÀÖ¹ÆÁ±Î
+			// å¢åŠ æŠ¥å¤´ï¼Œæ¨¡æ‹Ÿæµè§ˆå™¨ï¼Œé˜²æ­¢å±è”½
 			conn.setRequestProperty(
 					"User-Agent",
 					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)");
-			conn.setRequestProperty("Accept", "text/html");// Ö»½ÓÊÜtext/htmlÀàĞÍ£¬µ±È»Ò²¿ÉÒÔ½ÓÊÜÍ¼Æ¬,pdf,*/*ÈÎÒâ£¬¾ÍÊÇtomcat/conf/webÀïÃæ¶¨ÒåÄÇĞ©
+			conn.setRequestProperty("Accept", "text/html");// åªæ¥å—text/htmlç±»å‹ï¼Œå½“ç„¶ä¹Ÿå¯ä»¥æ¥å—å›¾ç‰‡,pdf,*/*ä»»æ„ï¼Œå°±æ˜¯tomcat/conf/webé‡Œé¢å®šä¹‰é‚£äº›
 			conn.connect();
 			InputStream is = conn.getInputStream();
 			java.io.BufferedReader l_reader = new java.io.BufferedReader(new java.io.InputStreamReader(is));
@@ -88,14 +79,13 @@ public class HtmlParserTest {
 
 			System.out.println("====================");
 			String testText = getTextList(sTotalString);
-			System.out.println(testText);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * ³éÈ¡´¿ÎÄ±¾ĞÅÏ¢
+	 * æŠ½å–çº¯æ–‡æœ¬ä¿¡æ¯
 	 * 
 	 * @param inputHtml
 	 * @return
@@ -105,7 +95,7 @@ public class HtmlParserTest {
 		Parser parser = Parser.createParser(new String(inputHtml.getBytes(),
 				"8859-1"), "8859-1");
 //		parser.setEncoding("utf-8");
-		// ±éÀúËùÓĞµÄ½Úµã
+		// éå†æ‰€æœ‰çš„èŠ‚ç‚¹
 		NodeList nodes = parser.extractAllNodesThatMatch(new NodeFilter() {
 			public boolean accept(Node node) {
 				return true;
@@ -117,7 +107,7 @@ public class HtmlParserTest {
 	}
 
 	/**
-	 * ³éÈ¡´¿ÎÄ±¾ĞÅÏ¢
+	 * æŠ½å–çº¯æ–‡æœ¬ä¿¡æ¯
 	 * 
 	 * @param inputHtml
 	 * @return
@@ -135,7 +125,7 @@ public class HtmlParserTest {
 				}
 			);
 		NodeList nodes = parser.parse(filter);
-		// ±éÀúËùÓĞµÄ½Úµã
+		// éå†æ‰€æœ‰çš„èŠ‚ç‚¹
 		/*NodeList nodes = parser.extractAllNodesThatMatch(new NodeFilter() {
 			public boolean accept(Node node) {
 				if(node.get){
@@ -156,15 +146,15 @@ public class HtmlParserTest {
 	}
 	
 	/**
-	 * ¶ÁÈ¡ÎÄ¼şµÄ·½Ê½À´·ÖÎöÄÚÈİ. filePathÒ²¿ÉÒÔÊÇÒ»¸öUrl.
+	 * è¯»å–æ–‡ä»¶çš„æ–¹å¼æ¥åˆ†æå†…å®¹. filePathä¹Ÿå¯ä»¥æ˜¯ä¸€ä¸ªUrl.
 	 * 
 	 * @param resource
-	 *            ÎÄ¼ş/Url
+	 *            æ–‡ä»¶/Url
 	 */
 	public static void test5(String resource) throws Exception {
 		Parser myParser = new Parser(resource);
 
-		// ÉèÖÃ±àÂë
+		// è®¾ç½®ç¼–ç 
 		myParser.setEncoding("GBK");
 		String filterStr = "table";
 		NodeFilter filter = new TagNameFilter(filterStr);
