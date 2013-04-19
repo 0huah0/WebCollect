@@ -1,7 +1,8 @@
+package webCollect;
 import java.util.Date;
 
 
-public class TextContext {
+public class TextContextPOJO {
 	private long recId;
 	private String fromUrl;//从这里抓到的
 	private String title; //简介等
