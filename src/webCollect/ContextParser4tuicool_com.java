@@ -1,6 +1,7 @@
 package webCollect;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.htmlparser.Node;
@@ -38,78 +39,50 @@ public class ContextParser4tuicool_com extends ContextParser {
 	private static List<TextContextPOJO> getTextList(String inputHtml) {
 		if (inputHtml.length() > 0) {
 			Parser parser = Parser.createParser(inputHtml, "utf-8");
-			AndFilter filter = new AndFilter( // class="single_fake" 的div
-					new NodeFilter[] { new TagNameFilter("div"),
-							new HasAttributeFilter("class", "single_fake") });
-			/*
-			 * NodeList nodes = parser.extractAllNodesThatMatch(new NodeFilter()
-			 * { public boolean accept(Node node) { if(node.get){ return true; }
-			 * return false; } });
-			 */
-
+			NodeFilter []nfFilters = { new TagNameFilter("div"),new HasAttributeFilter("class", "single_fake") };
+			
+			AndFilter filter = new AndFilter(nfFilters);
+			
 			try {
 				NodeList nodes = parser.parse(filter);
-
-	  			nodes.visitAllNodesWith(new NodeVisitor(true, false) {
+				for (int i = 0; i < nodes.size(); i++) {
 					TextContextPOJO text = new TextContextPOJO();
+					Node node = nodes.elementAt(i);
+					Parser parser0 = new Parser(node.toHtml());
 					
-					public void visitTag(Tag tag) {
-						 message("This is Tag:"+tag.getText());
-						if (tag instanceof Div) {
-							Div div = ((Div) tag);
-							if (div.getAttribute("class").equals(
-									"article_title")) {
-								if (div.getChild(0) instanceof LinkTag) {
-									LinkTag linkTag = (LinkTag) div.getChild(0);
-									text.setTitleUrl(linkTag
-											.getAttribute("href"));
-									text.setTitle(linkTag.getText());
-								}
-							} else if (div.getAttribute("class").equals(
-									"article_cut")) {
-								text.setContext(div.getText());
-							}
-						} else if (tag instanceof ImageTag) {
-							ImageTag img = (ImageTag) tag;
-							text.setImgUrl(img.getImageURL());
-							text.setImgLocUrl("");
-						}
-						list.add(text);
+					NodeList ns = parser0.parse(new HasAttributeFilter("class", "article_title"));
+					Node n = ns.elementAt(0).getChildren().elementAt(0);//error effect
+					if (n instanceof LinkTag) {
+						LinkTag linkTag = (LinkTag) n;
+						text.setTitleUrl(linkTag.getLink());
+						text.setTitle(linkTag.getText());
 					}
-
-					public void visitStringNode(Text string) {
-						 message("This is Text:"+string);
+					
+					ns = parser0.parse(new HasAttributeFilter("class", "article_cut"));
+					text.setContext(ns.elementAt(0).getText());
+					
+					ns = parser0.parse(new HasAttributeFilter("class", "article_thumb"));
+					n = ns.elementAt(0).getChildren().elementAt(0);
+					if (n instanceof ImageTag) {
+						ImageTag img = (ImageTag) n;
+						text.setImgUrl(img.getImageURL());
+//						String imgLocUrl = saveImg2Ftp(img.getImageURL());
+//						text.setImgLocUrl(imgLocUrl);
 					}
-
-					private void message(String string) {
-						System.out.println(string);
-					}
-
-					public void visitRemarkNode(Remark remark) {
-						 message("This is Remark:"+remark.getText());
-					}
-
-					public void beginParsing() {
-						 message("beginParsing");
-					}
-
-					public void visitEndTag(Tag tag) {
-						// message("visitEndTag:"+tag.getText());
-					}
-
-					public void finishedParsing() {
-						// message("finishedParsing");
-					}
-				});
-	  			return list;
+					
+					text.setGettedDt(new Date());
+					list.add(text);
+				}
 			} catch (ParserException e) {
 				e.printStackTrace();
-				return null;
 			}
+			
+			return list;
 		}
 		return null;
 	}
 
+	
 	public static void main(String[] args) {
 		String weburl = "http://www.tuicool.com/ah/";// tuicool文章
 		
