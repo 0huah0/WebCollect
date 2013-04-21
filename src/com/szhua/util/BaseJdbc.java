@@ -1,4 +1,4 @@
-package webCollect;
+package com.szhua.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

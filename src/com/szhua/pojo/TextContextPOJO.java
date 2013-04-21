@@ -1,4 +1,4 @@
-package webCollect;
+package com.szhua.pojo;
 import java.util.Date;
 
 

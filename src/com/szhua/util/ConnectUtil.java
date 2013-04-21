@@ -1,4 +1,4 @@
-package webCollect;
+package com.szhua.util;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -56,7 +56,7 @@ public class ConnectUtil {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			// JDK 1.5以前的版本，只能通过设置这两个系统属性来控制网络超时。在1.5中，还可以使用HttpURLConnection的父类URLConnection的以下两个方法：
 			conn.setConnectTimeout(5000);
-			conn.setReadTimeout(5000);
+			conn.setReadTimeout(50000);
 			// 增加报头，模拟浏览器，防止屏蔽
 			conn.setRequestProperty(
 					"User-Agent",
@@ -77,7 +77,7 @@ public class ConnectUtil {
 				 sTotalString.append(new String(buffer, 0, byteread, "utf-8"));
             }
            
-            
+			
 			//System.out.println(sTotalString.toString());
 			System.out.println("====================");
 			//new String(sTotalString.getBytes("utf-8")),"utf-8"

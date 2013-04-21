@@ -1,4 +1,4 @@
-package webCollect;
+package com.szhua.myparser;
 
 import java.util.List;
 
@@ -6,6 +6,9 @@ import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
 import org.htmlparser.Parser;
 import org.htmlparser.util.NodeList;
+
+import com.szhua.pojo.TextContextPOJO;
+import com.szhua.util.ConnectUtil;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package webCollect;
+package com.szhua.myparser;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +21,10 @@ import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
 import org.htmlparser.visitors.NodeVisitor;
 
+import com.szhua.dao.Jdbc4TextContext;
+import com.szhua.pojo.TextContextPOJO;
+import com.szhua.util.ConnectUtil;
+
 /**
  * http://www.tuicool.com/ah/
  * 
@@ -32,7 +36,7 @@ public class ContextParser4tuicool_com extends ContextParser {
 
 	/**
 	 * 抽取纯文本信息
-	 * 
+	 * 解析提取http://www.tuicool.com/ah/的信息
 	 * @param inputHtml
 	 * @return
 	 */
@@ -47,30 +51,29 @@ public class ContextParser4tuicool_com extends ContextParser {
 				NodeList nodes = parser.parse(filter);
 				for (int i = 0; i < nodes.size(); i++) {
 					TextContextPOJO text = new TextContextPOJO();
-					Node node = nodes.elementAt(i);
-					Parser parser0 = new Parser(node.toHtml());
-					
-					NodeList ns = parser0.parse(new HasAttributeFilter("class", "article_title"));
-					Node n = ns.elementAt(0).getChildren().elementAt(0);//error effect
+					NodeList ns = nodes.elementAt(i).getChildren();
+					Node n = ns.extractAllNodesThatMatch(new HasAttributeFilter("class", "article_title"),true).elementAt(0);
+					n = n.getChildren().elementAt(1);
 					if (n instanceof LinkTag) {
 						LinkTag linkTag = (LinkTag) n;
 						text.setTitleUrl(linkTag.getLink());
-						text.setTitle(linkTag.getText());
+						text.setTitle(linkTag.getAttribute("title"));
 					}
 					
-					ns = parser0.parse(new HasAttributeFilter("class", "article_cut"));
-					text.setContext(ns.elementAt(0).getText());
+					n = ns.extractAllNodesThatMatch(new HasAttributeFilter("class", "article_cut"),true).elementAt(0).getFirstChild();
+					text.setContext(n.getText());
 					
-					ns = parser0.parse(new HasAttributeFilter("class", "article_thumb"));
-					n = ns.elementAt(0).getChildren().elementAt(0);
-					if (n instanceof ImageTag) {
-						ImageTag img = (ImageTag) n;
-						text.setImgUrl(img.getImageURL());
-//						String imgLocUrl = saveImg2Ftp(img.getImageURL());
-//						text.setImgLocUrl(imgLocUrl);
+					ns = ns.extractAllNodesThatMatch(new HasAttributeFilter("class", "article_thumb"),true);
+					if(ns.size()>0){
+						n = ns.elementAt(0).getChildren().elementAt(1);
+						if (n instanceof ImageTag) {
+							ImageTag img = (ImageTag) n;
+							text.setImgUrl(img.getImageURL());
+//							String imgLocUrl = saveImg2Ftp(img.getImageURL());
+//							text.setImgLocUrl(imgLocUrl);
+						}
 					}
 					
-					text.setGettedDt(new Date());
 					list.add(text);
 				}
 			} catch (ParserException e) {
@@ -84,14 +87,19 @@ public class ContextParser4tuicool_com extends ContextParser {
 
 	
 	public static void main(String[] args) {
-		String weburl = "http://www.tuicool.com/ah/";// tuicool文章
-		
-		//List<TextContextPOJO> texts = getTextList(ConnectUtil.fetchPageContext(weburl));
-		List<TextContextPOJO> texts = getTextList(ConnectUtil.fromFile("G:\\html.html"));
-		for (TextContextPOJO text : texts) {
-			Jdbc4Text.saveTextContext(text);
+		String fromUrl = "http://www.tuicool.com/ah/";// tuicool文章
+		String str = ConnectUtil.fetchPageContext(fromUrl);
+		if(str.length()<100){
+			System.out.println("Download!-->"+str);
+		}else{
+			System.out.println("Download!-->"+str.length());
+			List<TextContextPOJO> texts = getTextList(str);
+			//List<TextContextPOJO> texts = getTextList(ConnectUtil.fromFile("G:\\html.html")); // for test、
+			System.out.println("Analysised!");			
+			new Jdbc4TextContext().saveTextContexts(texts,fromUrl);
+			System.out.println("Saved!");
 		}
-		Jdbc4Text.saveTextContext(new TextContextPOJO());
+		
 	}
 
 }
