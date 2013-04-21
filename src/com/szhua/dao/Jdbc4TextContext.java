@@ -1,15 +1,12 @@
 package com.szhua.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.szhua.pojo.TextContextPOJO;
-import com.szhua.util.BaseJdbc;
 
 public class Jdbc4TextContext extends BaseJdbc {
-	private static Connection conn = null;
 	
 	/**
 	 * 按照传入的条件在textcontext中查询记录count
@@ -17,14 +14,14 @@ public class Jdbc4TextContext extends BaseJdbc {
 	 * @return 记录count int
 	 */
 	private int getCountBy(String cs) {
-		String countsql = "select count(*) from textcontext where "+cs;
+		String countsql = "select count(*) as ct from textcontext where "+cs;
 		
-		int count = -1;
+		int count = 99999;
 		try {
 			ResultSet rs = conn.createStatement().executeQuery(countsql);
 			if(rs!=null){
 				rs.next();
-				count = rs.getInt(0);
+				count = rs.getInt("ct");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,10 +69,7 @@ public class Jdbc4TextContext extends BaseJdbc {
 	public void saveTextContexts(List<TextContextPOJO> texts,
 			String fromUrl) {
 		try {
-			if (conn == null) {
-				conn = getConnectionByJDBC();
-				conn.setAutoCommit(false);
-			}
+			conn.setAutoCommit(false);
 			for (TextContextPOJO text : texts) {
 				text.setFromUrl(fromUrl);
 				saveTextContext(text);
