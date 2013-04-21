@@ -15,7 +15,10 @@ public class ConnectUtil {
 	public static final String TIMEOUT = "TIMEOUT";
 	public static final String ERROR = "ERROR";
 	
-	private static void initProxy(String host, int port, final String username,
+	/**
+	 * 初始化代理
+	 */
+	private void initProxy(String host, int port, final String username,
 			final String password) {
 		Authenticator.setDefault(new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -41,9 +44,10 @@ public class ConnectUtil {
 		// System.setProperty("sun.net.client.defaultReadTimeout", "30000");
 	}
 	
-	
-	
-	protected static String fetchPageContext(String weburl) {
+	/**
+	 * 从网址weburl下载页面内容，以utf-8字符串返回
+	 */
+	public String fetchPageContext(String weburl) {
 		StringBuffer sTotalString = new StringBuffer("");
 		try {
 			String proxy = "ehome-a.efoxconn.com";
@@ -93,8 +97,9 @@ public class ConnectUtil {
 	/**
 	 * html from file 
 	 * 
-	 * */
-	protected static String fromFile(String file) {
+	 * 从html文件读取内容，以utf-8字符串返回
+	 */
+	public String fromFile(String file) {
 		StringBuffer sTotalString = new StringBuffer("");
 		try {
 			FileInputStream fis = new FileInputStream(new File(file));

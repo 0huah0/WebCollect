@@ -69,7 +69,7 @@ public class Jdbc4TextContext extends BaseJdbc {
 	 * @param texts 
 	 * @param fromUrl 来源的页面路径
 	 */
-	protected void saveTextContexts(List<TextContextPOJO> texts,
+	public void saveTextContexts(List<TextContextPOJO> texts,
 			String fromUrl) {
 		try {
 			if (conn == null) {
