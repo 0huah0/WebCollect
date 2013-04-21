@@ -29,8 +29,8 @@ public abstract class ContextParser {
 	 * 2.解析
 	 * 3.检查，无重复保存
 	 */
-	public void doTast(ConnectUtil connectUtil){
-		String str = connectUtil.fetchPageContext(fromUrl);
+	public void doTast(){
+		String str = ConnectUtil.fetchPageContext(fromUrl);
 		if(str.length()<100){
 			System.out.println("Download!-->"+str);
 		}else{

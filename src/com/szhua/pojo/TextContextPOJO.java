@@ -10,9 +10,29 @@ public class TextContextPOJO {
 	private String context; // 内容信息等文本
 	private String imgLocUrl;	// 内容相关等图片中ftp中的url
 	private String imgUrl;// 图片的网页路径
+	private int visitTimes;	//阅览次数
 	private int status;
-	private int type;
+	private int type;	//见contextType表
 	private Date gettedDt;
+	private Date publishDt;
+
+
+
+	public int getVisitTimes() {
+		return visitTimes;
+	}
+
+	public void setVisitTimes(int visitTimes) {
+		this.visitTimes = visitTimes;
+	}
+
+	public Date getPublishDt() {
+		return publishDt;
+	}
+
+	public void setPublishDt(Date publishDt) {
+		this.publishDt = publishDt;
+	}
 
 	public long getRecId() {
 		return recId;

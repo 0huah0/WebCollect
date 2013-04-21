@@ -17,13 +17,13 @@ import java.util.Properties;
  *
  */
 public class ConnectUtil {
-	public final String TIMEOUT = "TIMEOUT";
-	public final String ERROR = "ERROR";
+	public final static String TIMEOUT = "TIMEOUT";
+	public final static String ERROR = "ERROR";
 
 	/**
 	 * 初始化代理
 	 */
-	private void initProxy(String host, int port, final String username, final String password) {
+	private static void initProxy(String host, int port, final String username, final String password) {
 		Authenticator.setDefault(new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, new String(password).toCharArray());
@@ -50,7 +50,7 @@ public class ConnectUtil {
 	/**
 	 * 从网址weburl下载页面内容，以utf-8字符串返回
 	 */
-	public String fetchPageContext(String weburl) {
+	public static String fetchPageContext(String weburl) {
 		StringBuffer sTotalString = new StringBuffer("");
 		try {
 			String proxy = "ehome-a.efoxconn.com";

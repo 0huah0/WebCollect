@@ -15,7 +15,6 @@ import com.szhua.util.ConnectUtil;
 public class TaskManager {
 
 	private List<ContextParser> contextParsers = new ArrayList<ContextParser>();
-	private ConnectUtil connectUtil = null;
 	
 	/**
 	 * 
@@ -23,11 +22,9 @@ public class TaskManager {
 	 * @author Hua 2013-4-21 下午7:36:43
 	 */
 	public TaskManager() {
-		//初始化connectUtil
-		connectUtil = new ConnectUtil();
 		
 		//注册命令
-		contextParsers.add(new ContextParser4tuicool_com("http://www.tuicool.com/ah/"));
+		contextParsers.add(new ContextParser4tuicool_com());
 		// this.contextParsers.add(new ContextParser4baidu_com("http://www.baidu.com/"));
 	}
 
@@ -37,7 +34,7 @@ public class TaskManager {
 	 */
 	public void doWork() {
 		for (ContextParser contextParser : contextParsers) {
-			contextParser.doTast(connectUtil);
+			contextParser.doTast();
 		}
 		
 	}

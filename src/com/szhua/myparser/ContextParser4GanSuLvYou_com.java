@@ -7,6 +7,7 @@ import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.AndFilter;
+import org.htmlparser.filters.CssSelectorNodeFilter;
 import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.tags.ImageTag;
@@ -15,47 +16,45 @@ import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
 
 import com.szhua.pojo.TextContextPOJO;
+import com.szhua.util.DateUtil;
 
 /**
- * http://www.tuicool.com/ah/
+ * http://www.gsta.gov.cn/pub/lyzw/lvzx/gslydt/index.html
  * 
- * @author Hua 2013-4-21 下午7:42:03
+ * @author Hua 2013-4-21 下午11:08:23
  */
-public class ContextParser4tuicool_com extends ContextParser {
+public class ContextParser4GanSuLvYou_com extends ContextParser {
 	List<TextContextPOJO> list = new ArrayList<TextContextPOJO>();
 
-	public ContextParser4tuicool_com() {
-		super("http://www.tuicool.com/ah/");
+	public ContextParser4GanSuLvYou_com() {
+		super("http://www.gsta.gov.cn/pub/lyzw/lvzx/gslydt/index.html");
 	}
 
-	/**
-	 * 抽取纯文本信息 解析提取http://www.tuicool.com/ah/的信息
-	 * @param inputHtml
-	 * @return
-	 */
 	@Override
 	public List<TextContextPOJO> getTextList(String inputHtml) {
 		if (inputHtml.length() > 0) {
 			Parser parser = Parser.createParser(inputHtml, "utf-8");
-			NodeFilter[] nfFilters = { new TagNameFilter("div"), new HasAttributeFilter("class", "single_fake") };
-
-			AndFilter filter = new AndFilter(nfFilters);
+			CssSelectorNodeFilter filter = new CssSelectorNodeFilter ("td[class='font-108']"); 
 
 			try {
 				NodeList nodes = parser.parse(filter);
-				for (int i = 0; i < nodes.size(); i++) {
+				for (int i = 0; i < nodes.size(); i++) {					
 					TextContextPOJO text = new TextContextPOJO();
-					NodeList ns = nodes.elementAt(i).getChildren();
-					Node n = ns.extractAllNodesThatMatch(new HasAttributeFilter("class", "article_title"), true).elementAt(0);
-					n = n.getChildren().elementAt(1);
+					
+					Node trNode = nodes.elementAt(i).getParent();
+					
+					NodeList ns = trNode.getChildren().extractAllNodesThatMatch(new CssSelectorNodeFilter ("a"), true);
+					Node n = nodes.elementAt(0).getChildren().elementAt(1);
 					if (n instanceof LinkTag) {
 						LinkTag linkTag = (LinkTag) n;
 						text.setTitleUrl(linkTag.getLink());
 						text.setTitle(linkTag.getAttribute("title"));
 					}
-
-					n = ns.extractAllNodesThatMatch(new HasAttributeFilter("class", "article_cut"), true).elementAt(0).getFirstChild();
-					text.setContext(n.getText());
+未完成
+					//发布shiji
+					ns = trNode.getChildren().extractAllNodesThatMatch(new CssSelectorNodeFilter ("td[class='font-10']"), true);
+					n = nodes.elementAt(0).getFirstChild();
+					text.setPublishDt(DateUtil.getDate(n.getText(), "yyyy-MM-dd"));
 
 					ns = ns.extractAllNodesThatMatch(new HasAttributeFilter("class", "article_thumb"), true);
 					if (ns.size() > 0) {
