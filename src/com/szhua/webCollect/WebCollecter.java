@@ -13,6 +13,7 @@ public class WebCollecter {
 	 */
 	public static void main(String[] args) {
 		new TaskManager().doWork();
+		System.exit(0);
 	}
 
 }

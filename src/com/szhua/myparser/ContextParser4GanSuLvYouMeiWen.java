@@ -1,12 +1,12 @@
 package com.szhua.myparser;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.CssSelectorNodeFilter;
-import org.htmlparser.filters.RegexFilter;
 import org.htmlparser.tags.Div;
 import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.NodeList;
@@ -22,7 +22,6 @@ import com.szhua.util.DateUtil;
  * @author Hua 2013-4-21 下午11:08:23
  */
 public class ContextParser4GanSuLvYouMeiWen extends ContextParser {
-	List<TextContextPOJO> list = new ArrayList<TextContextPOJO>();
 
 	public ContextParser4GanSuLvYouMeiWen() {
 		//首页 » 旅游资讯 » 旅游美文 
@@ -72,13 +71,25 @@ public class ContextParser4GanSuLvYouMeiWen extends ContextParser {
 						 * <div align="center">来源:甘肃旅游政务网 | 添加时间:2013年04月16日 09:17:26 | 点击: 
 						 * <script src="http://www.gsta.gov.cn/content/hitview.do?id=1366075046521" type="text/javascript" language="JavaScript">
 						 * </script>16 次</div></td>*/
-						parser0.extractAllNodesThatMatch(new RegexFilter(pattern));
+						//parser0.extractAllNodesThatMatch(new RegexFilter("<div align=\"center\">来源:.*|[^<]添加时间:.*"));
 						
+						Pattern pattern = Pattern.compile("来源:甘肃旅游政务网 \\| 添加时间:(.+)\\|\\s*点击:.*>(\\d+)");
+						Matcher matcher = pattern.matcher(str);
+						if (matcher.find()) {
+							System.out.println(matcher.group());
+							text.setPublishDt(DateUtil.getDate(matcher.group(1), "yyyy年MM月dd日 HH:mm:ss"));
+							System.out.println(matcher.group(1));
+							try{
+								text.setVisitTimes(Integer.parseInt(matcher.group(2)));
+							}catch (NumberFormatException e) {
+								text.setVisitTimes(0);
+							}
+							System.out.println(matcher.group(2));
+						}
+					
+						list.add(text);
 					}
-					
-					
-					list.add(text);
-				}
+				}	
 			} catch (ParserException e) {
 				e.printStackTrace();
 			}

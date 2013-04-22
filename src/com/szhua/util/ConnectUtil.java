@@ -99,7 +99,7 @@ public class ConnectUtil {
 	 * 
 	 * 从html文件读取内容，以utf-8字符串返回
 	 */
-	public String fromFile(String file) {
+	public static String fromFile(String file) {
 		StringBuffer sTotalString = new StringBuffer("");
 		try {
 			FileInputStream fis = new FileInputStream(new File(file));

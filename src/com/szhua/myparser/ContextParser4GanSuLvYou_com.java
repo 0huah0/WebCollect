@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.htmlparser.Node;
-import org.htmlparser.NodeFilter;
 import org.htmlparser.Parser;
-import org.htmlparser.filters.AndFilter;
 import org.htmlparser.filters.CssSelectorNodeFilter;
 import org.htmlparser.filters.HasAttributeFilter;
-import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.tags.ImageTag;
 import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.NodeList;
@@ -50,7 +47,6 @@ public class ContextParser4GanSuLvYou_com extends ContextParser {
 						text.setTitleUrl(linkTag.getLink());
 						text.setTitle(linkTag.getAttribute("title"));
 					}
-未完成
 					//发布shiji
 					ns = trNode.getChildren().extractAllNodesThatMatch(new CssSelectorNodeFilter ("td[class='font-10']"), true);
 					n = nodes.elementAt(0).getFirstChild();

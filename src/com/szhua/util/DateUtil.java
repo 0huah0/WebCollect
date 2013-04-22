@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.mysql.jdbc.StringUtils;
-
 /**
  * 日期处理工具类.
  */

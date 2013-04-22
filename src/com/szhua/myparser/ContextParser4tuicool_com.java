@@ -1,6 +1,5 @@
 package com.szhua.myparser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.htmlparser.Node;
@@ -22,7 +21,7 @@ import com.szhua.pojo.TextContextPOJO;
  * @author Hua 2013-4-21 下午7:42:03
  */
 public class ContextParser4tuicool_com extends ContextParser {
-	List<TextContextPOJO> list = new ArrayList<TextContextPOJO>();
+	
 
 	public ContextParser4tuicool_com() {
 		super("http://www.tuicool.com/ah/");
