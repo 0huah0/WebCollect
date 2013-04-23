@@ -50,7 +50,7 @@ public class ConnectUtil {
 	/**
 	 * 从网址weburl下载页面内容，以utf-8字符串返回
 	 */
-	public static String fetchPageContext(String weburl) {
+	public static String fetchPageContext(String weburl,String charset) {
 		StringBuffer sTotalString = new StringBuffer("");
 		try {
 			String proxy = "ehome-a.efoxconn.com";
@@ -79,7 +79,7 @@ public class ConnectUtil {
 			int byteread = 0; // 读入多个字节到字节数组中，byteread为一次读入的字节数
 			byte[] buffer = new byte[2048 * 1024];
 			while ((byteread = fin.read(buffer)) != -1) {
-				sTotalString.append(new String(buffer, 0, byteread, "utf-8"));
+				sTotalString.append(new String(buffer, 0, byteread,charset));
 			}
 
 			// System.out.println(sTotalString.toString());
@@ -99,7 +99,7 @@ public class ConnectUtil {
 	 * 
 	 * 从html文件读取内容，以utf-8字符串返回
 	 */
-	public static String fromFile(String file) {
+	public static String fromFile(String file,String charset) {
 		StringBuffer sTotalString = new StringBuffer("");
 		try {
 			FileInputStream fis = new FileInputStream(new File(file));
@@ -107,7 +107,7 @@ public class ConnectUtil {
 			int byteread = 0; // 读入多个字节到字节数组中，byteread为一次读入的字节数
 			byte[] buffer = new byte[2048 * 1024];
 			while ((byteread = fin.read(buffer)) != -1) {
-				sTotalString.append(new String(buffer, 0, byteread, "utf-8"));
+				sTotalString.append(new String(buffer, 0, byteread, charset));
 			}
 			System.out.println("====================");
 		} catch (Exception e) {

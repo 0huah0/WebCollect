@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.szhua.myparser.ContextParser;
-import com.szhua.myparser.ContextParser4tuicool_com;
+import com.szhua.myparser.ContextParser4GanSuLvYouMeiWen;
 
 /**
  * 命令模式
@@ -23,8 +23,8 @@ public class TaskManager {
 	public TaskManager() {
 		
 		//注册命令
-		contextParsers.add(new ContextParser4tuicool_com());
-		// this.contextParsers.add(new ContextParser4baidu_com("http://www.baidu.com/"));
+		//contextParsers.add(new ContextParser4tuicool_com());
+		contextParsers.add(new ContextParser4GanSuLvYouMeiWen());
 	}
 
 	/**

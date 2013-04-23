@@ -16,4 +16,4 @@ delete a FROM textcontext a ,(
 
 
 select count(1) from textcontext where titleUrl='/articles/f6zYfi';
-
+update textcontext set type=5

@@ -14,7 +14,9 @@ import com.szhua.util.ConnectUtil;
 public abstract class ContextParser {
 	List<TextContextPOJO> list = new ArrayList<TextContextPOJO>();
 	private String fromUrl = "";
-
+	protected String charset = "utf-8";
+	protected int type = 6;//未分类
+	
 	public ContextParser(String fromUrl) {
 		this.fromUrl = fromUrl;
 	}
@@ -31,7 +33,7 @@ public abstract class ContextParser {
 	 * 1.下载 2.解析 3.检查，无重复保存
 	 */
 	public void doTast() {
-		String str = ConnectUtil.fetchPageContext(fromUrl);
+		String str = ConnectUtil.fetchPageContext(fromUrl,charset);
 		if(str.length()<100){
 			System.out.println("Download!-->"+str);
 		}else{

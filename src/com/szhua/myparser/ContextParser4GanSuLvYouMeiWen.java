@@ -26,16 +26,17 @@ public class ContextParser4GanSuLvYouMeiWen extends ContextParser {
 	public ContextParser4GanSuLvYouMeiWen() {
 		//首页 » 旅游资讯 » 旅游美文 
 		super("http://www.gsta.gov.cn/pub/lyzw/lvzx/lymw/index.html"); 
+		charset = "gbk";
+		type = 7; //旅游美文 
 	}
 
 	@Override
 	public List<TextContextPOJO> getTextList(String inputHtml) {
 		if (inputHtml.length() > 0) {
-			Parser parser = Parser.createParser(inputHtml, "utf-8");
-			CssSelectorNodeFilter filter = new CssSelectorNodeFilter ("td[class='font-108']"); 
+			Parser parser = Parser.createParser(inputHtml, charset);
 
 			try {
-				NodeList nodes = parser.parse(filter);
+				NodeList nodes = parser.parse(new CssSelectorNodeFilter ("td[class='font-108']"));
 				for (int i = 0; i < nodes.size(); i++) {					
 					TextContextPOJO text = new TextContextPOJO();
 					
@@ -43,7 +44,7 @@ public class ContextParser4GanSuLvYouMeiWen extends ContextParser {
 					
 					//标题&链接
 					NodeList ns = trNode.getChildren().extractAllNodesThatMatch(new CssSelectorNodeFilter ("a"), true);
-					Node n = ns.elementAt(0).getChildren().elementAt(1);
+					Node n = ns.elementAt(0);
 					if (n instanceof LinkTag) {
 						LinkTag linkTag = (LinkTag) n;
 						text.setTitleUrl(linkTag.getLink());
@@ -55,24 +56,19 @@ public class ContextParser4GanSuLvYouMeiWen extends ContextParser {
 					n = ns.elementAt(0).getFirstChild();
 					text.setPublishDt(DateUtil.getDate(n.getText(), "yyyy-MM-dd"));
 
+					System.out.println(text.getTitleUrl());
+					
 					//主内容或简要
-					String str = ConnectUtil.fetchPageContext(text.getTitleUrl());
+					String str = ConnectUtil.fetchPageContext(text.getTitleUrl(),charset);
 					if(str.length()<100){
 						System.out.println("Download!-->"+str);
 					}else{
 						System.out.println("Download!-->"+str.length());
-						Parser parser0 = Parser.createParser(str, "utf-8");
-						CssSelectorNodeFilter filter0 = new CssSelectorNodeFilter ("div[id='wwkjArticleContent']"); 
-						ns = parser0.extractAllNodesThatMatch(filter0);
+						Parser parser0 = Parser.createParser(str, charset);
+						ns = parser0.extractAllNodesThatMatch(new CssSelectorNodeFilter("div[id=wwkjArticleDetail]"));
+						
+						text.setContext(((Div)(ns.elementAt(0))).getChildrenHTML());
 						//内容html
-						text.setContext(((Div)ns.elementAt(0).getFirstChild()).getChildrenHTML());
-						
-						/*<td height="30">
-						 * <div align="center">来源:甘肃旅游政务网 | 添加时间:2013年04月16日 09:17:26 | 点击: 
-						 * <script src="http://www.gsta.gov.cn/content/hitview.do?id=1366075046521" type="text/javascript" language="JavaScript">
-						 * </script>16 次</div></td>*/
-						//parser0.extractAllNodesThatMatch(new RegexFilter("<div align=\"center\">来源:.*|[^<]添加时间:.*"));
-						
 						Pattern pattern = Pattern.compile("来源:甘肃旅游政务网 \\| 添加时间:(.+)\\|\\s*点击:.*>(\\d+)");
 						Matcher matcher = pattern.matcher(str);
 						if (matcher.find()) {
@@ -86,9 +82,11 @@ public class ContextParser4GanSuLvYouMeiWen extends ContextParser {
 							}
 							System.out.println(matcher.group(2));
 						}
-					
-						list.add(text);
 					}
+					
+					
+					text.setType(type);
+					list.add(text);
 				}	
 			} catch (ParserException e) {
 				e.printStackTrace();

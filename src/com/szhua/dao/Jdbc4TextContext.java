@@ -41,18 +41,18 @@ public class Jdbc4TextContext extends BaseJdbc {
 		if(text.getTitleUrl()==null || getCountBy("titleUrl='"+text.getTitleUrl()+"';")<1){
 			
 			String insertsql = "insert into TextContext ("
-					+ "fromUrl,title,titleUrl,context,imgLocUrl,imgUrl,status,type,gettedDt) values('"
+					+ "fromUrl,title,titleUrl,context,imgLocUrl,imgUrl,visitTimes,status,type,gettedDt,publishDt) values('"
 					+ text.getFromUrl() + "','" + text.getTitle() + "','"
 					+ text.getTitleUrl() + "','" + text.getContext() + "','"
 					+ text.getImgLocUrl() + "','" + text.getImgUrl()
-					+ "',1,1,now());";
+					+ "',"+text.getVisitTimes()+",1,"+text.getType()+",now(),"+text.getPublishDt()+");";
 			System.out.println(insertsql);
 			
-			try {
+			/*try {
 				conn.createStatement().execute(insertsql);
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}else{
 			System.out.println("Exist title:"+text.getTitle());
 		}

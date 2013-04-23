@@ -25,6 +25,8 @@ public class ContextParser4tuicool_com extends ContextParser {
 
 	public ContextParser4tuicool_com() {
 		super("http://www.tuicool.com/ah/");
+		charset = "utf-8";
+		type = 5; //计算机互联网   计算机互联网评论文章
 	}
 
 	/**
@@ -35,7 +37,7 @@ public class ContextParser4tuicool_com extends ContextParser {
 	@Override
 	public List<TextContextPOJO> getTextList(String inputHtml) {
 		if (inputHtml.length() > 0) {
-			Parser parser = Parser.createParser(inputHtml, "utf-8");
+			Parser parser = Parser.createParser(inputHtml, charset);
 			NodeFilter[] nfFilters = { new TagNameFilter("div"), new HasAttributeFilter("class", "single_fake") };
 
 			AndFilter filter = new AndFilter(nfFilters);
@@ -67,6 +69,7 @@ public class ContextParser4tuicool_com extends ContextParser {
 						}
 					}
 
+					text.setType(type);
 					list.add(text);
 				}
 			} catch (ParserException e) {
