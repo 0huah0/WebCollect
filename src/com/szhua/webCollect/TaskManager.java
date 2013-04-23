@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.szhua.myparser.ContextParser;
 import com.szhua.myparser.ContextParser4GanSuLvYouMeiWen;
+import com.szhua.myparser.ContextParser4tuicool_com;
 
 /**
  * 命令模式
@@ -23,7 +24,7 @@ public class TaskManager {
 	public TaskManager() {
 		
 		//注册命令
-		//contextParsers.add(new ContextParser4tuicool_com());
+		contextParsers.add(new ContextParser4tuicool_com());
 		contextParsers.add(new ContextParser4GanSuLvYouMeiWen());
 	}
 

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.szhua.pojo.TextContextPOJO;
+import com.szhua.util.DateUtil;
 
 public class Jdbc4TextContext extends BaseJdbc {
 	
@@ -45,14 +46,16 @@ public class Jdbc4TextContext extends BaseJdbc {
 					+ text.getFromUrl() + "','" + text.getTitle() + "','"
 					+ text.getTitleUrl() + "','" + text.getContext() + "','"
 					+ text.getImgLocUrl() + "','" + text.getImgUrl()
-					+ "',"+text.getVisitTimes()+",1,"+text.getType()+",now(),"+text.getPublishDt()+");";
+					+ "',"+text.getVisitTimes()+",1,"+text.getType()+",now(),"+
+					(text.getPublishDt()==null?null:("'"+DateUtil.formatDate(text.getPublishDt(),"yyyy-MM-dd HH:mm:ss")+"'"))
+					+");";
 			System.out.println(insertsql);
 			
-			/*try {
+			try {
 				conn.createStatement().execute(insertsql);
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}*/
+			}
 		}else{
 			System.out.println("Exist title:"+text.getTitle());
 		}

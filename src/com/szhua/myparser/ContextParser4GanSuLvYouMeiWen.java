@@ -56,7 +56,7 @@ public class ContextParser4GanSuLvYouMeiWen extends ContextParser {
 					n = ns.elementAt(0).getFirstChild();
 					text.setPublishDt(DateUtil.getDate(n.getText(), "yyyy-MM-dd"));
 
-					System.out.println(text.getTitleUrl());
+					//System.out.println(text.getTitleUrl());
 					
 					//主内容或简要
 					String str = ConnectUtil.fetchPageContext(text.getTitleUrl(),charset);
