@@ -16,15 +16,14 @@ import com.szhua.pojo.TextContextPOJO;
 import com.szhua.util.DateUtil;
 
 /**
- * http://www.gsta.gov.cn/pub/lyzw/lvzx/gslydt/index.html
- * 
+ * http://www.gsta.gov.cn/pub/lyzw/gzdt/szkx/index.html
  * @author Hua 2013-4-21 下午11:08:23
  */
 public class ContextParser4GanSuLvYou_com extends ContextParser {
 	List<TextContextPOJO> list = new ArrayList<TextContextPOJO>();
 
 	public ContextParser4GanSuLvYou_com() {
-		super("http://www.gsta.gov.cn/pub/lyzw/lvzx/gslydt/index.html");
+		super("http://www.gsta.gov.cn/pub/lyzw/gzdt/szkx/index.html");
 	}
 
 	@Override

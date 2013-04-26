@@ -26,6 +26,7 @@ public class ContextParser4GanSuLvYouMeiWen extends ContextParser {
 	public ContextParser4GanSuLvYouMeiWen() {
 		//首页 » 旅游资讯 » 旅游美文 
 		super("http://www.gsta.gov.cn/pub/lyzw/lvzx/lymw/index.html"); 
+		//super("http://www.gsta.gov.cn/pub/lyzw/gzdt/szkx/index.html");//已经收录至 2013-4-26 下午9:48:24
 		charset = "gbk";
 		type = 7; //旅游美文 
 	}
