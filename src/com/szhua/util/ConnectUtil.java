@@ -53,11 +53,11 @@ public class ConnectUtil {
 	public static String fetchPageContext(String weburl,String charset) {
 		StringBuffer sTotalString = new StringBuffer("");
 		try {
-			String proxy = "ehome-a.efoxconn.com";
+			/*String proxy = "ehome-a.efoxconn.com";
 			int port = 3128;
 			String username = "F3229233";
 			String password = "password";
-			initProxy(proxy, port, username, password);
+			initProxy(proxy, port, username, password);*/
 
 			URL url = new URL(weburl);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();

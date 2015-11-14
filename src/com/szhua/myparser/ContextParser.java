@@ -38,10 +38,12 @@ public abstract class ContextParser {
 			System.out.println("Download!-->"+str);
 		}else{
 			System.out.println("Download!-->"+str.length());
+			
 			List<TextContextPOJO> texts = getTextList(str);
 			System.out.println("Analysised!");			
+			
 			new Jdbc4TextContext().saveTextContexts(texts,fromUrl);
-			System.out.println("Saved!");
+			System.out.println("Saved!"+texts.size());
 		}
 	}
 

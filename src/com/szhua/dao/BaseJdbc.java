@@ -42,7 +42,7 @@ public class BaseJdbc {
 			/**
 			 * 建立jdbc连接，但要注意此方法的第一个参数， 如果127.0.0.1出现CommunicationsException异常， 可能就需要改为localhost才可以
 			 **/
-			conn = DriverManager.getConnection("jdbc:mysql://10.137.229.71:3306/webcollect", "user", "user");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webc", "webc", "webc1111");
 		} catch (SQLException e) {
 			System.out.println("链接数据库发生异常!");
 			e.printStackTrace();

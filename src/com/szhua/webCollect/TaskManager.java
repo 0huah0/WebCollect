@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.szhua.myparser.ContextParser;
-import com.szhua.myparser.ContextParser4GanSuLvYouMeiWen;
-import com.szhua.myparser.ContextParser4tuicool_com;
+import com.szhua.myparser.ContextParser4ximi_com;
 
 /**
  * 命令模式
@@ -24,8 +23,11 @@ public class TaskManager {
 	public TaskManager() {
 		
 		//注册命令
-		contextParsers.add(new ContextParser4tuicool_com());
-		contextParsers.add(new ContextParser4GanSuLvYouMeiWen());
+		//contextParsers.add(new ContextParser4tuicool_com());
+		
+		//contextParsers.add(new ContextParser4GanSuLvYouMeiWen()); //20151114 bage not found
+
+		contextParsers.add(new ContextParser4ximi_com());
 	}
 
 	/**
